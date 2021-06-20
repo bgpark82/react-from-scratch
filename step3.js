@@ -60,7 +60,7 @@ let wipRoot = null;
 let deletions = null;
 
 function render(element, container) {
-  //   console.log("렌더링", element, container);
+    console.log("렌더링", element, container);
   wipRoot = {
     dom: container,
     props: {

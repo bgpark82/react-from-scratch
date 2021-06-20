@@ -1,4 +1,7 @@
 function createElement(type, props, ...children) {
+
+  console.log("createElement", type, props, children)
+
   return {
     type,
     props: {
@@ -21,6 +24,7 @@ function createTextElement(text) {
 }
 
 function createDom(fiber) {
+
   const dom =
     fiber.type == "TEXT_ELEMENT"
       ? document.createTextNode("")
@@ -118,6 +122,7 @@ function commitDeletion(fiber, domParent) {
 }
 
 function render(element, container) {
+  console.log("====>> 렌더링 시작!!!",element)
   wipRoot = {
     dom: container,
     props: {
@@ -159,6 +164,7 @@ function workLoop(deadline) {
 requestIdleCallback(workLoop);
 
 function performUnitOfWork(fiber) {
+  console.log("=>>>>유닛작업 시작",fiber)
   const isFunctionComponent = fiber.type instanceof Function;
 
   console.log("1. 유닛 작업", fiber, isFunctionComponent);
@@ -184,6 +190,8 @@ let wipFiber = null;
 let hookIndex = null;
 
 function updateFunctionComponent(fiber) {
+  console.log("fiber", wipFiber, fiber)
+
   wipFiber = fiber;
   hookIndex = 0;
   wipFiber.hooks = [];
@@ -195,6 +203,7 @@ function updateFunctionComponent(fiber) {
 }
 
 function useState(initial) {
+  
   const oldHook =
     wipFiber.alternate &&
     wipFiber.alternate.hooks &&
@@ -208,6 +217,8 @@ function useState(initial) {
   actions.forEach((action) => {
     hook.state = action(hook.state);
   });
+
+  console.log("====>> state 생성", initial, wipFiber, hook, actions)
 
   const setState = (action) => {
     hook.queue.push(action);
@@ -313,7 +324,8 @@ function Counter() {
         setState((c) => c + 1);
       }}
     >
-      Count: {state}
+      <div>Count: {state}</div>
+      <div>자식생성</div>
     </h1>
   );
 }
