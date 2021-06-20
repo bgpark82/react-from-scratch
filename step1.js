@@ -1,25 +1,27 @@
 const element = {
-  type: "h1", // tag
+  type: "div", 
   props: {
-    title: "foo", // props
+    id: "a", 
     children: "안녕하세요"
   }
 };
 
 function render(element, container) {
 
-  // 1. tag 생성
-  const dom = document.createElement(element.type);
-  dom["title"] = element.props.title;
+  // 1. node 생성
+  const node = document.createElement(element.type);
+  node["id"] = element.props.id;
 
-  // 2. text 생성
+  // 2. child 생성
   const text = document.createTextNode("");
   text["nodeValue"] = element.props.children;
+  console.log(text)
 
-  // 3. dom 렌더링
-  dom.appendChild(text);
-  container.appendChild(dom);
+	// 3. node, text 연결
+  node.appendChild(text);
+
+	// 4. dom 연결
+  container.appendChild(node);
 }
-
 
 render(element, document.getElementById("root"))
