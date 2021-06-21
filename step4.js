@@ -127,7 +127,6 @@ function useState(initial) {
   return [rootNode.hook.state, setNumber]
 }
 
-
 /** @jsx createElement */
 function App() {
 
